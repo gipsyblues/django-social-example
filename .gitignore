@@ -1,0 +1,10 @@
+# Python
+venv/
+*.pyc
+
+# Project
+*.sqlite3
+
+# IDE configs
+.idea/
+.vscode/
