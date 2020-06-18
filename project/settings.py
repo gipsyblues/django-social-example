@@ -17,16 +17,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Environment
 
-DEV = os.environ.get('DEV') == 'TRUE'
+DEBUG = os.environ.get('DEBUG') == 'TRUE'
 
-if DEV:
+if DEBUG:
     # Local development settings
-    DEBUG = True
     SECRET_KEY = 'j)-#r6$eiomv&!scva&li=mgo#_ibgvr^xhi!8jcf-8g7vg-49'
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     # Production related settings
-    DEBUG = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
     ALLOWED_HOSTS = []
 
@@ -112,3 +110,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
