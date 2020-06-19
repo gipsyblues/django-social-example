@@ -4,6 +4,7 @@ venv/
 
 # Project
 *.sqlite3
+media/
 
 # IDE configs
 .idea/
