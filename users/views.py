@@ -7,7 +7,7 @@ from .forms import UserEditForm, ProfileEditForm
 
 @login_required
 def dashboard(request):
-    return render(request, 'user/dashboard.html', dict(section='dashboard'))
+    return render(request, 'users/dashboard.html', dict(section='dashboard'))
 
 
 @login_required
@@ -28,4 +28,4 @@ def edit(request):
         profile_form = ProfileEditForm(instance=request.user.profile)
 
     ctx = dict(user_form=user_form, profile_form=profile_form)
-    return render(request, 'user/edit.html', ctx)
+    return render(request, 'users/edit.html', ctx)
