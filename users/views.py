@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
+from actions.models import Action
+from actions.utils import create_action
 from common.decorators import ajax_required
 from .forms import UserEditForm, ProfileEditForm
 from .models import Contact
@@ -12,7 +14,15 @@ from .models import Contact
 
 @login_required
 def dashboard(request):
-    return render(request, 'users/dashboard.html', dict(section='dashboard'))
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+
+    if following_ids:
+        actions = actions.filter(user_id__in=following_ids)
+    actions = actions.select_related('user', 'user__profile').prefetch_related('target')[:15]
+
+    ctx = dict(section='dashboard', actions=actions)
+    return render(request, 'users/dashboard.html', ctx)
 
 
 @login_required
@@ -61,6 +71,7 @@ def user_follow(request):
             contact_user = User.objects.get(id=user_id)
             if action == 'follow':
                 Contact.objects.get_or_create(user_from=request.user, user_to=contact_user)
+                create_action(request.user, 'is following', contact_user)
             else:
                 Contact.objects.filter(user_from=request.user, user_to=contact_user).delete()
             return JsonResponse({'status': 'ok'})

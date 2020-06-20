@@ -13,12 +13,13 @@ class Profile(models.Model):
         return f'Profile for {self.user}'
 
 
-def create_profile(request, user, **kwargs):
+def user_created(request, user, **kwargs):
     """ Creates empty user profile when a new user signs up """
     Profile.objects.create(user=user)
+    user_created(user, 'has signed up')
 
 
-user_signed_up.connect(create_profile)
+user_signed_up.connect(user_created)
 
 
 class Contact(models.Model):
