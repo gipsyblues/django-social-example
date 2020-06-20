@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'images.apps.ImagesConfig',
+    'actions.apps.ActionsConfig',
 
     'allauth',
     'allauth.account',
