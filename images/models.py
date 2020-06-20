@@ -11,8 +11,9 @@ class Image(models.Model):
     url = models.URLField()
     image = models.ImageField(upload_to='images/%Y/%m/%d/')
     description = models.TextField(blank=True, null=True)
-    created = models.DateField(auto_now_add=True, db_index=True)
     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_images', blank=True)
+    total_likes = models.PositiveIntegerField(db_index=True, default=0)
+    created = models.DateField(auto_now_add=True, db_index=True)
 
     class Meta:
         ordering = ('-created',)

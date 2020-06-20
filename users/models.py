@@ -1,7 +1,6 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.conf import settings
-from allauth.account.signals import user_signed_up
 
 
 class Profile(models.Model):
@@ -11,15 +10,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'Profile for {self.user}'
-
-
-def user_created(request, user, **kwargs):
-    """ Creates empty user profile when a new user signs up """
-    Profile.objects.create(user=user)
-    user_created(user, 'has signed up')
-
-
-user_signed_up.connect(user_created)
 
 
 class Contact(models.Model):
