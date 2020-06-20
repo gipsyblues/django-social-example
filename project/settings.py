@@ -13,6 +13,8 @@ Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 import os
 
+from django.urls import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Environment
@@ -47,7 +49,12 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'easy_thumbnails',
 ]
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', kwargs=dict(username=u.username))
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
