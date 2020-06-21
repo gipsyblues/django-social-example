@@ -35,6 +35,10 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
+    'images.apps.ImagesConfig',
+    'actions.apps.ActionsConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,10 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
-    'users.apps.UsersConfig',
-    'images.apps.ImagesConfig',
-    'actions.apps.ActionsConfig',
 
     'allauth',
     'allauth.account',

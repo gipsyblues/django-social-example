@@ -39,9 +39,20 @@ def image_create(request):
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
     total_views = r.incr(f'image:{image.id}:views')
+    r.zincrby('image_ranking', 1, image.id)
 
     ctx = dict(section='images', image=image, total_views=total_views)
     return render(request, 'images/image/detail.html', ctx)
+
+
+def image_ranking(request):
+    ranking = r.zrange('image_ranking', 0, -1, desc=True)[:10]
+    ranking_ids = [int(id) for id in ranking]
+    most_viewed = list(Image.objects.filter(id__in=ranking_ids))
+    most_viewed.sort(key=lambda img: ranking_ids.index(img.id))
+
+    ctx = dict(section='images', most_viewed=most_viewed)
+    return render(request, 'images/image/ranking.html', ctx)
 
 
 @ajax_required
