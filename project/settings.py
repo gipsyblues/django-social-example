@@ -93,7 +93,7 @@ DATABASES = {
         "NAME": environ.get("POSTGRES_DB"),
         "USER": environ.get("POSTGRES_USER"),
         "PASSWORD": environ.get("POSTGRES_PASSWORD"),
-        "HOST": environ.get("POSTGRES_HOST"),
+        "HOST": "db",
         "PORT": 5432,
     }
 }
@@ -146,7 +146,7 @@ ABSOLUTE_URL_OVERRIDES = {
 SITE_ID = 1
 
 # redis
-REDIS_HOST = "localhost"
+REDIS_HOST = "redis"
 REDIS_PORT = 6379
 REDIS_DB = 0
 

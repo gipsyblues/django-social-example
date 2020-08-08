@@ -1,0 +1,17 @@
+# Python
+venv
+**/*.pyc
+**/.pytest_cache
+
+# Project
+**/*.sqlite3
+media
+static
+
+# IDE configs
+.idea
+.vscode
+
+# Git
+**/.git
+**/.gitignore

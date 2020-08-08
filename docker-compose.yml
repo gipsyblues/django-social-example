@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DEBUG=TRUE
+      - SECRET_KEY=apdy7(azdkfgyq3uy22&hv3@v1)y$$5!nl+!3_)=3r!^v0knwtb
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+
+  redis:
+    image: redis
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    volumes:
+      - redis-data:/data
+
+volumes:
+  postgres-data:
+  redis-data:
