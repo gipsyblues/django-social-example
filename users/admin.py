@@ -1,14 +1,14 @@
 from django.contrib import admin
 
-from .models import Profile, Contact
+from .models import Contact, Profile
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date_of_birth', 'photo')
+    list_display = ("user", "date_of_birth", "photo")
 
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('user_from', 'user_to', 'created')
-    list_filter = ('created',)
+    list_display = ("user_from", "user_to", "created")
+    list_filter = ("created",)

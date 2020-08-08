@@ -10,23 +10,23 @@ from .models import Image
 class ImageCreateForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ('title', 'url', 'description')
+        fields = ("title", "url", "description")
 
     def clean_url(self):
-        url = self.cleaned_data['url']
-        valid_extensions = ['jpg', 'jpeg']
-        extension = url.rsplit('.', 1)[1].lower()
+        url = self.cleaned_data["url"]
+        valid_extensions = ["jpg", "jpeg"]
+        extension = url.rsplit(".", 1)[1].lower()
         if extension not in valid_extensions:
-            raise forms.ValidationError('The given URL does not match valid JPEG image')
+            raise forms.ValidationError("The given URL does not match valid JPEG image")
         return url
 
     def save(self, commit=True):
         image = super().save(commit=False)
 
-        url = self.cleaned_data['url']
+        url = self.cleaned_data["url"]
         slug = slugify(image.title)
-        extension = url.rsplit('.', 1)[1].lower()
-        image_name = f'{slug}.{extension}'
+        extension = url.rsplit(".", 1)[1].lower()
+        image_name = f"{slug}.{extension}"
 
         # download image from the given URL
         response = request.urlopen(url)
