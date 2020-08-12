@@ -1,4 +1,4 @@
-# Social Website Example
+# Django Social Website Example
 
 Example from
 https://github.com/PacktPublishing/Django-3-by-Example
